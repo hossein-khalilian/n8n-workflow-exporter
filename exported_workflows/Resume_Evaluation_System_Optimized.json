@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-05-31T06:14:41.532Z",
-  "updatedAt": "2025-05-31T08:49:46.834Z",
+  "updatedAt": "2025-05-31T09:43:41.594Z",
   "id": "SYMYw0Ava1AmPwC7",
   "name": "Resume Evaluation System Optimized",
   "active": false,
@@ -102,7 +102,7 @@
             "first_name": "={{ $('Merge').item.json.output.first_name }}",
             "last_name": "={{ $('Merge').item.json.output.last_name }}",
             "email": "={{ $('Merge').item.json.output.email }}",
-            "telephone": "={{ $('Merge').item.json.output.telephone }}",
+            "telephone": "={{ $('Merge').item.json.output.telephone.replace(/\\D/g, '') }}",
             "city": "={{ $('Merge').item.json.output.city }}",
             "birthdate": "={{ $('Merge').item.json.output.birthdate }}",
             "profile_summary": "={{ $('Merge').item.json.output.summary }}",
@@ -494,7 +494,8 @@
           "id": "azdxB7N0pg5xfAi5",
           "name": "Gmail account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -823,7 +824,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "4e545e4e-65da-4ba4-abc5-0a277cb19917",
+  "versionId": "19b26f33-99ac-4014-b724-68128b1f7e06",
   "triggerCount": 0,
   "shared": [
     {
