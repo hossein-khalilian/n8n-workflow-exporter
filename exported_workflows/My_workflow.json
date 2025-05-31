@@ -1,0 +1,216 @@
+{
+  "createdAt": "2025-05-28T07:25:02.682Z",
+  "updatedAt": "2025-05-28T07:32:36.294Z",
+  "id": "wwf7Ti4JSMbxOBoD",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "id": "33aa4500-6d80-4391-8a5b-5872505c88c0",
+      "name": "Customer Datastore",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "position": [
+        540,
+        280
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## About the very quick quickstart workflow\n\nThis is an incomplete workflow, used in the [very quick quickstart](https://docs.n8n.io//try-it-out/quickstart/) tutorial.",
+        "height": 220,
+        "width": 300
+      },
+      "id": "07e14f21-8ad8-4bb9-8c51-25bae94a558f",
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "**Get fake sample data**",
+        "height": 300,
+        "width": 220
+      },
+      "id": "8939683e-9f31-4bbd-b752-4e66207e05a9",
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        180
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "**Extract data and prepare it for use in the next node**",
+        "height": 300,
+        "width": 220
+      },
+      "id": "b558d7f1-0057-4a72-880a-11836fd01d30",
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        760,
+        180
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "cefcfc11-ae01-4056-bba2-2b2ad3d3d741",
+      "name": "When clicking \"Test Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        300,
+        280
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "df041e3c-fc09-4ba2-8e6b-37f2c6a02526",
+              "name": "customer_id",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "id": "bf288953-4fef-4f55-a45f-c223714919c0",
+              "name": "customer_name",
+              "type": "string",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "id": "1cff0b21-6740-4697-9d2c-9bcb045af0be",
+              "name": "customer_description",
+              "type": "string",
+              "value": "={{ $json.notes }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "07ed0952-06d8-4359-aaff-d8a81a27db03",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        820,
+        280
+      ],
+      "typeVersion": 3.3
+    },
+    {
+      "parameters": {
+        "customerId": "={{ $json.customer_id }}",
+        "message": "=Hi {{ $json.customer_name }}. Your description is: {{ $json.customer_description }}"
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerMessenger",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        280
+      ],
+      "id": "1ef83aa8-ccfd-430e-89e5-c51e91c1cd5f",
+      "name": "Customer Messenger (n8n training)"
+    }
+  ],
+  "connections": {
+    "Customer Datastore": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Test Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Customer Datastore",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Customer Messenger (n8n training)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "230ac3bb-1e8d-4de0-9dbf-44096dc79ad3",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-05-28T07:25:02.682Z",
+      "updatedAt": "2025-05-28T07:25:02.682Z",
+      "role": "workflow:owner",
+      "workflowId": "wwf7Ti4JSMbxOBoD",
+      "projectId": "N0THRpL0ucTFaZuk",
+      "project": {
+        "createdAt": "2025-05-28T06:15:12.309Z",
+        "updatedAt": "2025-05-28T06:17:45.290Z",
+        "id": "N0THRpL0ucTFaZuk",
+        "name": "hossein khalilian <hse.khalilian08@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-05-28T06:15:12.309Z",
+            "updatedAt": "2025-05-28T06:15:12.309Z",
+            "role": "project:personalOwner",
+            "userId": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+            "projectId": "N0THRpL0ucTFaZuk",
+            "user": {
+              "createdAt": "2025-05-28T06:15:10.871Z",
+              "updatedAt": "2025-05-28T07:23:50.038Z",
+              "id": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+              "email": "hse.khalilian08@gmail.com",
+              "firstName": "hossein",
+              "lastName": "khalilian",
+              "personalizationAnswers": null,
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "role": "global:owner",
+              "disabled": false,
+              "mfaEnabled": false,
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}

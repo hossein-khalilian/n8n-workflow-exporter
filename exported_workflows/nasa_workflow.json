@@ -1,0 +1,222 @@
+{
+  "createdAt": "2025-05-28T07:38:43.567Z",
+  "updatedAt": "2025-05-28T07:58:06.484Z",
+  "id": "rhBt15ebkS2DczEL",
+  "name": "nasa workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ab66ea0f-51e6-40c4-bb4a-99631f54abd7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "donkiSolarFlare",
+        "additionalFields": {
+          "startDate": "={{ $today.minus(7, 'days') }}"
+        }
+      },
+      "type": "n8n-nodes-base.nasa",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "0a4649f7-d2c6-41d0-95c0-72f12493d305",
+      "name": "NASA",
+      "credentials": {
+        "nasaApi": {
+          "id": "nTUmFp2J9VVLjAne",
+          "name": "NASA account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e1b214fe-f67a-4c72-9641-4212adb680c7",
+              "leftValue": "={{ $json.classType }}",
+              "rightValue": "X",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "0c7ca2ac-67f6-4fd1-93e9-628cf82587de",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "request",
+        "operation": "send",
+        "binId": "1748418641928-3105975918006",
+        "binContent": "=There was a solar flare of class {{$json[\"classType\"]}}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.postBin",
+      "typeVersion": 1,
+      "position": [
+        660,
+        -100
+      ],
+      "id": "8f905f26-75fd-4ce4-9065-e8bffa4f2222",
+      "name": "PostBin"
+    },
+    {
+      "parameters": {
+        "resource": "request",
+        "operation": "send",
+        "binId": "1748418641928-3105975918006",
+        "binContent": "=There was a solar flare of class {{$json[\"classType\"]}}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.postBin",
+      "typeVersion": 1,
+      "position": [
+        660,
+        80
+      ],
+      "id": "7a3cb267-6edf-4a2a-83ab-a52888566cc6",
+      "name": "PostBin1"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "NASA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NASA": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "PostBin",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PostBin1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "4e6b345b-d7cd-4ba4-9052-e113e09a5cfb",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-05-28T07:38:43.567Z",
+      "updatedAt": "2025-05-28T07:38:43.567Z",
+      "role": "workflow:owner",
+      "workflowId": "rhBt15ebkS2DczEL",
+      "projectId": "N0THRpL0ucTFaZuk",
+      "project": {
+        "createdAt": "2025-05-28T06:15:12.309Z",
+        "updatedAt": "2025-05-28T06:17:45.290Z",
+        "id": "N0THRpL0ucTFaZuk",
+        "name": "hossein khalilian <hse.khalilian08@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-05-28T06:15:12.309Z",
+            "updatedAt": "2025-05-28T06:15:12.309Z",
+            "role": "project:personalOwner",
+            "userId": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+            "projectId": "N0THRpL0ucTFaZuk",
+            "user": {
+              "createdAt": "2025-05-28T06:15:10.871Z",
+              "updatedAt": "2025-05-28T07:23:50.038Z",
+              "id": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+              "email": "hse.khalilian08@gmail.com",
+              "firstName": "hossein",
+              "lastName": "khalilian",
+              "personalizationAnswers": null,
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "role": "global:owner",
+              "disabled": false,
+              "mfaEnabled": false,
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
