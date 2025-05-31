@@ -1,0 +1,185 @@
+{
+  "createdAt": "2025-05-31T06:21:27.532Z",
+  "updatedAt": "2025-05-31T08:34:41.752Z",
+  "id": "F1g29VmlPAumDAxe",
+  "name": "extract_pdf",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "upload pdf",
+        "formDescription": "upload your pdf here to extract its data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Resume",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": "pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "41b07767-94c6-4572-8ced-6e6f41017de0",
+      "name": "On form submission",
+      "webhookId": "0b7c90bd-4552-43d3-ac22-8987de4e20dd"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://this:5000/extract-urls",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "Resume"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        200
+      ],
+      "id": "fa260688-50d8-4ae1-a11e-69a6c30a9259",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Resume",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        -40
+      ],
+      "id": "34037f07-7840-444b-9875-868061dc6870",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        460,
+        60
+      ],
+      "id": "e7a6d224-6ffb-424b-9a36-74ae7866ccc9",
+      "name": "Merge"
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "b6d5006c-4fa5-4f64-b455-91be961c5fb2",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-05-31T06:21:27.532Z",
+      "updatedAt": "2025-05-31T06:21:27.532Z",
+      "role": "workflow:owner",
+      "workflowId": "F1g29VmlPAumDAxe",
+      "projectId": "N0THRpL0ucTFaZuk",
+      "project": {
+        "createdAt": "2025-05-28T06:15:12.309Z",
+        "updatedAt": "2025-05-28T06:17:45.290Z",
+        "id": "N0THRpL0ucTFaZuk",
+        "name": "hossein khalilian <hse.khalilian08@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-05-28T06:15:12.309Z",
+            "updatedAt": "2025-05-28T06:15:12.309Z",
+            "role": "project:personalOwner",
+            "userId": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+            "projectId": "N0THRpL0ucTFaZuk",
+            "user": {
+              "createdAt": "2025-05-28T06:15:10.871Z",
+              "updatedAt": "2025-05-28T07:23:50.038Z",
+              "id": "d081b529-50e2-49d8-b656-9c89af5a5e8c",
+              "email": "hse.khalilian08@gmail.com",
+              "firstName": "hossein",
+              "lastName": "khalilian",
+              "personalizationAnswers": null,
+              "settings": {
+                "userActivated": false,
+                "easyAIWorkflowOnboarded": true
+              },
+              "role": "global:owner",
+              "disabled": false,
+              "mfaEnabled": false,
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
